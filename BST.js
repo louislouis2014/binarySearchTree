@@ -58,8 +58,12 @@ class Node {
 	countNodes(){
 		if( !this.left && !this.right ){
 			return 1;
+		} else if( this.left ){
+			return 1 + this.left.countNodes();
+		} else if( this.right ) {
+			return 1 + this.right.countNodes();
 		} else {
-			return 1 + root.left.countNodes() + root.right.countNodes();
+			return 1 + this.left.countNodes() + this.right.countNodes();
 		}
 	}
 
