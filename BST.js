@@ -55,6 +55,10 @@ class Node {
 	}
 
 	treeForEach( fn ){
+		fn( this );
+		if( this.left ){ fn( this.left ); }
+		if( this.right ){ fn( this.right ); }
+		return;
 	}
 
 	countNodes(){
