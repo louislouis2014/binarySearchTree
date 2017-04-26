@@ -41,14 +41,16 @@ class Node {
 	}
 
 	contains( val ){
-		if( !this ){
-			return false;
-		} else if( val < this.val ){
-			this.left.contains( val );
-		} else if( val > this.val ){
-			this.right.contains( val );
-		} else if( val === this.val ){
+		if( this.val === val ){
 			return true;
+		} else if( val < this.val ){
+			if( this.left ){ return this.left.contains( val ); }
+			return false;
+		} else if( val > this.val ){
+			if( this.right ){ return this.right.contains( val ); }
+			return false;
+		} else {
+			return false;
 		}
 	}
 
@@ -58,9 +60,9 @@ class Node {
 	countNodes(){
 		if( !this.left && !this.right ){
 			return 1;
-		} else if( this.left ){
+		} else if( this.left && !this.right ){
 			return 1 + this.left.countNodes();
-		} else if( this.right ) {
+		} else if( this.right && !this.left ) {
 			return 1 + this.right.countNodes();
 		} else {
 			return 1 + this.left.countNodes() + this.right.countNodes();
@@ -70,6 +72,10 @@ class Node {
 	sum(){
 		if( !this.left && !this.right ){
 			return this.val;
+		} else if( this.left && !this.right ){
+			return this.val + this.left.sum();
+		} else if( this.right && !this.left ) {
+			return this.val + this.right.sum();
 		} else {
 			return this.val + this.left.sum() + this.right.sum();
 		}
